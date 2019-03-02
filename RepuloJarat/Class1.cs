@@ -33,12 +33,18 @@ namespace RepuloJarat
 
         public void Keses(string jaratSzam, int keses)
         {
+            bool voltIlyenJarat = false;
             foreach (var item in jaratok)
             {
                 if (item.Jaratszam == jaratSzam)
                 {
                     item.Keses += keses;
+                    voltIlyenJarat = true;
                 }
+            }
+            if (!voltIlyenJarat)
+            {
+                throw new ArgumentException("Nincs ilyen jarat");
             }
         }
 
@@ -54,10 +60,17 @@ namespace RepuloJarat
             throw new ArgumentException();
         }
 
-        public List<string> JaratokRepuloterrol(string repter)
+        public List<Jarat> JaratokRepuloterrol(string repter)
         {
-            List<string> jaratok = new List<string>();
-            return jaratok;
+            List<Jarat> segedJaratok = new List<Jarat>();
+            foreach (var item in jaratok)
+            {
+                if (item.RepterHonnan == repter)
+                {
+                    segedJaratok.Add(item);
+                }
+            }
+            return segedJaratok;
         }
 
         public int Jaratkesese(string jaratszam)
